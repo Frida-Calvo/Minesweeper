@@ -48,11 +48,11 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    //your code here
+    System.out.println("you lost");
 }
 public void displayWinningMessage()
 {
-    //your code here
+    System.out.println("you win");
 }
 
 public class MSButton
@@ -87,7 +87,16 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        //your code here
+        if(mouseButton == RIGHT){
+            marked =! marked;   //able to mark and unmark the box
+            if(marked == false)
+                clicked = false;
+        }
+        else if(bombs.contains(this))
+            displayLosingMessage();
+        else if(countBombs(r,c) > 0)
+            setLabel("" + countBombs(r,c));
+
     }
 
     public void draw () 
@@ -99,10 +108,10 @@ public class MSButton
         else if(clicked)
             fill( 200 );
         else 
-            fill( 100 );
+            fill( 100 ); 
 
         rect(x, y, width, height);
-        fill(0);
+        fill(255,255,255);
         text(label,x+width/2,y+height/2);
     }
     public void setLabel(String newLabel)
