@@ -96,6 +96,10 @@ public class MSButton
             displayLosingMessage();
         else if(countBombs(r,c) > 0)
             setLabel("" + countBombs(r,c));
+        else{
+            if(isValid(r, c-1) == true && !bombs.contains(buttons[r][c-1]))
+                buttons[n r][c-1].mousePressed();
+        }
 
     }
 
