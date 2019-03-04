@@ -97,8 +97,10 @@ public class MSButton
         else if(countBombs(r,c) > 0)
             setLabel("" + countBombs(r,c));
         else{
-            if(isValid(r, c-1) == true && !bombs.contains(buttons[r][c-1]))
-                buttons[n r][c-1].mousePressed();
+                if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
+                buttons[r][c-1].mousePressed();
+            // if(isValid(r, c+1) == true && clicked == true)//right
+            //     buttons[r][c+1].mousePressed();
         }
 
     }
