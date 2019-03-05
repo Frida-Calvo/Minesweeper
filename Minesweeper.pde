@@ -24,7 +24,7 @@ void setup ()
 }
 public void setBombs()
 {
-    while(bombs.size() < 3){
+    while(bombs.size() < 18){
         int r = (int)(Math.random() * NUM_ROWS);
         int c = (int)(Math.random() * NUM_COLS);
         if(!bombs.contains(buttons[r][c])){
@@ -97,8 +97,15 @@ public class MSButton
         else if(countBombs(r,c) > 0)
             setLabel("" + countBombs(r,c));
         else{
-                if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
-                buttons[r][c-1].mousePressed();
+            for(int rows = r-1; rows <= r+1; rows++)
+                for(int cols = c-1; c<= c+1; cols++){
+                    if(isValid(rows,cols) == true && rows != r && cols != c && buttons[rows][cols].clicked == false)
+                        buttons[rows][cols].mousePressed();
+
+                }
+
+            // if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
+            //     buttons[r][c-1].mousePressed();
             // if(isValid(r, c+1) == true && clicked == true)//right
             //     buttons[r][c+1].mousePressed();
         }
@@ -133,11 +140,11 @@ public class MSButton
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
-        for(int r = row-1; r< row+1;r++)
-            for(int c = col-1; c < col+1; c++)
+        for(int r = row-1; r<= row+1;r++)
+            for(int c = col-1; c <= col+1; c++)
                 if(isValid(r,c)==true && bombs.contains(buttons[r][c]))
                     numBombs++;
-        if(bombs.contains(buttons[r][c])== true)
+        if(bombs.contains(buttons[row][col])== true)
             numBombs--;
         return numBombs;
     }
