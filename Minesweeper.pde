@@ -97,17 +97,30 @@ public class MSButton
         else if(countBombs(r,c) > 0)
             setLabel("" + countBombs(r,c));
         else{
-            for(int rows = r-1; rows <= r+1; rows++)
-                for(int cols = c-1; c<= c+1; cols++){
-                    if(isValid(rows,cols) == true && rows != r && cols != c && buttons[rows][cols].clicked == false)
-                        buttons[rows][cols].mousePressed();
+            // for(int rows = r-1; rows <= r+1; rows++)
+            //     for(int cols = c-1; c<= c+1; cols++){
+            //         if(isValid(rows,cols) == true && rows != r && cols != c && buttons[rows][cols].clicked == false)
+            //             buttons[rows][cols].mousePressed();
+            //     }
 
-                }
+            if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
+                buttons[r][c-1].mousePressed();
+            if(isValid(r, c+1) == true && clicked == true)//right
+                buttons[r][c+1].mousePressed();
+            
+            if(isValid(r+1, c) == true && clicked == true)//down
+                buttons[r+1][c].mousePressed();
+            if(isValid(r+1, c-1) == true && clicked == true)//down left
+                buttons[r+1][c-1].mousePressed();
+            if(isValid(r+1, c+1) == true && clicked == true)//down right
+                buttons[r+1][c+1].mousePressed();
 
-            // if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
-            //     buttons[r][c-1].mousePressed();
-            // if(isValid(r, c+1) == true && clicked == true)//right
-            //     buttons[r][c+1].mousePressed();
+            if(isValid(r-1, c) == true && clicked == true)//up
+                buttons[r-1][c].mousePressed();
+            if(isValid(r-1, c+1) == true && clicked == true)//right up
+                buttons[r-1][c+1].mousePressed();
+            if(isValid(r-1, c-1) == true && clicked == true)//left up
+                buttons[r-1][c-1].mousePressed();
         }
 
     }
