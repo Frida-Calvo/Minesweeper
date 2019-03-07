@@ -24,7 +24,7 @@ void setup ()
 }
 public void setBombs()
 {
-    while(bombs.size() < 18){
+    while(bombs.size() < 1){
         int r = (int)(Math.random() * NUM_ROWS);
         int c = (int)(Math.random() * NUM_COLS);
         if(!bombs.contains(buttons[r][c])){
@@ -38,21 +38,40 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
-        displayWinningMessage();
 }
+
 public boolean isWon()
 {
-    //your code here
-    return false;
+    int filled = 0;
+    for(int num =0; num < bombs.size(); num++)
+        if(bombs.get(num).isMarked()==true)
+            filled++;
+    if(filled == bombs.size())
+        return true;
+    else
+        return false;
 }
 public void displayLosingMessage()
 {
     System.out.println("you lost");
+
+
+    fill(93, 153, 133); //green
+    rect(100, 180, 200, 50);
+    // rect(x, y, width, height);
+    textSize(40);
+    fill(130, 180, 216);//light blue
+    text("You lose", 200, 200);
+
 }
 public void displayWinningMessage()
 {
-    System.out.println("you win");
+    fill(195, 165, 206); //purple
+    rect(100, 180, 200, 50);
+    // rect(x, y, width, height);
+    textSize(40);
+    fill(255, 201, 245);//pink
+    text("You win!", 200, 200);
 }
 
 public class MSButton
@@ -94,34 +113,33 @@ public class MSButton
         }
         else if(bombs.contains(this))
             displayLosingMessage();
+
+
+
         else if(countBombs(r,c) > 0)
             setLabel("" + countBombs(r,c));
         else{
-            // for(int rows = r-1; rows <= r+1; rows++)
-            //     for(int cols = c-1; c<= c+1; cols++){
-            //         if(isValid(rows,cols) == true && rows != r && cols != c && buttons[rows][cols].clicked == false)
-            //             buttons[rows][cols].mousePressed();
-            //     }
 
             if(isValid(r, c-1) == true && buttons[r][c-1].clicked == false)//left
                 buttons[r][c-1].mousePressed();
-            if(isValid(r, c+1) == true && clicked == true)//right
+            if(isValid(r, c+1) == true && buttons[r][c+1].clicked == false)//right
                 buttons[r][c+1].mousePressed();
             
-            if(isValid(r+1, c) == true && clicked == true)//down
+            if(isValid(r+1, c) == true && buttons[r+1][c].clicked == false)//down
                 buttons[r+1][c].mousePressed();
-            if(isValid(r+1, c-1) == true && clicked == true)//down left
+            if(isValid(r+1, c-1) == true && buttons[r+1][c-1].clicked == false)//down left
                 buttons[r+1][c-1].mousePressed();
-            if(isValid(r+1, c+1) == true && clicked == true)//down right
+            if(isValid(r+1, c+1) == true && buttons[r+1][c+1].clicked == false)//down right
                 buttons[r+1][c+1].mousePressed();
 
-            if(isValid(r-1, c) == true && clicked == true)//up
+            if(isValid(r-1, c) == true && buttons[r-1][c].clicked == false)//up
                 buttons[r-1][c].mousePressed();
-            if(isValid(r-1, c+1) == true && clicked == true)//right up
+            if(isValid(r-1, c+1) == true && buttons[r-1][c+1].clicked == false)//right up
                 buttons[r-1][c+1].mousePressed();
-            if(isValid(r-1, c-1) == true && clicked == true)//left up
+            if(isValid(r-1, c-1) == true && buttons[r-1][c-1].clicked == false)//left up
                 buttons[r-1][c-1].mousePressed();
         }
+
 
     }
 
@@ -138,7 +156,13 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(255,255,255);
+        textSize(15);
         text(label,x+width/2,y+height/2);
+
+        if(isWon()){
+        displayWinningMessage();
+    }
+
     }
     public void setLabel(String newLabel)
     {
