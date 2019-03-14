@@ -13,16 +13,16 @@ void setup ()
 {
     size(400, 400);
     textAlign(CENTER,CENTER);
-    
+
     // make the manager
     Interactive.make( this );
-    
+
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
-    
+
     for(int r = 0; r<NUM_ROWS; r++)
         for(int c=0; c<NUM_COLS; c++)
             buttons[r][c]= new MSButton(r,c);
-    
+
     setBombs();
 }
 public void setBombs()
@@ -32,11 +32,11 @@ public void setBombs()
         int c = (int)(Math.random() * NUM_COLS);
         if(!bombs.contains(buttons[r][c])){
             bombs.add(buttons[r][c]);
-            System.out.println(r + ", " + c);
+            // System.out.println(r + ", " + c);
         }
     }
 }
-    
+
 
 public void draw ()
 {
@@ -84,13 +84,13 @@ public class MSButton
     private float x,y, width, height;
     private boolean clicked, marked;
     private String label;
-    
+
     public MSButton ( int rr, int cc )
     {
         width = 400/NUM_COLS;
         height = 400/NUM_ROWS;
         r = rr;
-        c = cc; 
+        c = cc;
         x = c*width;
         y = r*height;
         label = "";
@@ -106,8 +106,8 @@ public class MSButton
         return clicked;
     }
     // called by manager
-    
-    public void mousePressed () 
+
+    public void mousePressed ()
     {
         if(won == false && lost == false){
             clicked = true;
@@ -129,7 +129,7 @@ public class MSButton
                     buttons[r][c-1].mousePressed();
                 if(isValid(r, c+1) == true && buttons[r][c+1].clicked == false)//right
                     buttons[r][c+1].mousePressed();
-                
+
                 if(isValid(r+1, c) == true && buttons[r+1][c].clicked == false)//down
                     buttons[r+1][c].mousePressed();
                 if(isValid(r+1, c-1) == true && buttons[r+1][c-1].clicked == false)//down left
@@ -148,9 +148,9 @@ public class MSButton
         }
     }
 
-    public void draw () 
-    {    
-        
+    public void draw ()
+    {
+
         if (marked)
             fill(204, 108, 61);
         else if( clicked && bombs.contains(this) ) {
@@ -162,8 +162,8 @@ public class MSButton
 
         else if(clicked)
             fill( 221, 146, 110 );
-        else 
-            fill( 255, 219, 178 ); 
+        else
+            fill( 255, 219, 178 );
 
         rect(x, y, width, height);
         fill(255,255,255);
@@ -198,6 +198,3 @@ public class MSButton
         return numBombs;
     }
 }
-
-
-
